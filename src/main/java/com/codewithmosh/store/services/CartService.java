@@ -9,16 +9,17 @@ import com.codewithmosh.store.mappers.CartMapper;
 import com.codewithmosh.store.repositories.CartRepository;
 import com.codewithmosh.store.repositories.ProductRepository;
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.UUID;
 
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class CartService {
-    private CartRepository cartRepository;
-    private CartMapper cartMapper;
-    private ProductRepository productRepository;
+    private final CartRepository cartRepository;
+    private final CartMapper cartMapper;
+    private final ProductRepository productRepository;
 
     public CartDto createCart() {
         var cart = new Cart();
