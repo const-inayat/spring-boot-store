@@ -39,23 +39,10 @@ public class CheckoutController {
     }
 
     @PostMapping("/webhook")
-    public ResponseEntity<Void> handleWebhook(HttpServletRequest request) {
-
-        String payload;
-        try {
-            payload = new String(
-                    request.getInputStream().readAllBytes(),
-                    StandardCharsets.UTF_8
-            );
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().build();
-        }
-        String signature = request.getHeader("Stripe-Signature");
-
-        System.out.println("=== RAW PAYLOAD ===");
-        System.out.println(payload);
-        System.out.println("=== SIGNATURE ===");
-        System.out.println(signature);
+    public ResponseEntity<Void> handleWebhook(
+            @RequestHeader("Stripe-Signature") String signature,
+            @RequestBody String payload
+    ) {
 
         try {
             var event = Webhook.constructEvent(payload, signature, webhookSecretKey);
