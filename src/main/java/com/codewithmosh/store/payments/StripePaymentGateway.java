@@ -90,7 +90,7 @@ public class StripePaymentGateway implements PaymentGateway {
 
     private SessionCreateParams.LineItem.PriceData createPriceData(OrderItem item) {
         return SessionCreateParams.LineItem.PriceData.builder()
-                .setCurrency("usd")
+                .setCurrency("inr")
                 .setUnitAmountDecimal(item.getUnitPrice().multiply(BigDecimal.valueOf(100)))
                 .setProductData(createProductData(item)
                 ).build();
