@@ -1,5 +1,6 @@
 package com.codewithmosh.store.users;
 
+import com.codewithmosh.store.common.ErrorDto;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -71,7 +72,7 @@ public class UserController {
     }
 
     @ExceptionHandler(AccessDeniedException.class)
-    public ResponseEntity<Void> handleAccessDenied(){
-        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+    public ResponseEntity<ErrorDto> handleAccessDenied(Exception ex){
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new ErrorDto(ex.getMessage()));
     }
 }

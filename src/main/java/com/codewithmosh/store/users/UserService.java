@@ -65,7 +65,7 @@ public class UserService {
             throw new AccessDeniedException("Password does not match");
         }
 
-        user.setPassword(request.getNewPassword());
+        user.setPassword(passwordEncoder.encode(request.getNewPassword()));
         userRepository.save(user);
     }
 
