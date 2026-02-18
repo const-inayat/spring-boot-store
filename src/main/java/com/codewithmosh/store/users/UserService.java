@@ -58,18 +58,18 @@ public class UserService {
         userRepository.delete(user);
     }
 
-    private User findUser(Long id) {
-        return userRepository.findById(id).orElseThrow(UserNotFoundException::new);
-    }
-
     public void changePassword(Long id, ChangePasswordRequest request){
         var user = findUser(id);
 
-        if (!user.getPassword().equals(request.getOldPassword())) {
-            throw new AccessDeniedException("Password does not match.") ;
+        if (!passwordEncoder.matches(request.getOldPassword(), user.getPassword())) {
+            throw new AccessDeniedException("Password does not match");
         }
 
         user.setPassword(request.getNewPassword());
         userRepository.save(user);
+    }
+
+    private User findUser(Long id) {
+        return userRepository.findById(id).orElseThrow(UserNotFoundException::new);
     }
 }

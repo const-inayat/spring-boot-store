@@ -15,9 +15,6 @@ import java.util.Map;
 @AllArgsConstructor
 @RequestMapping("/users")
 public class UserController {
-    private final UserRepository userRepository;
-    private final UserMapper userMapper;
-    private final PasswordEncoder passwordEncoder;
     private final UserService userService;
 
     @GetMapping
@@ -74,7 +71,7 @@ public class UserController {
     }
 
     @ExceptionHandler(AccessDeniedException.class)
-    public ResponseEntity<Map<String, String>> handleAccessDenied(){
+    public ResponseEntity<Void> handleAccessDenied(){
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
     }
 }
